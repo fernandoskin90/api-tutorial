@@ -79,18 +79,39 @@ app.post('/api/producto', (req, res) => {
 
 // actualizar los productos
 app.put('/api/producto/:productId', (req, res) => {
+  // se captura el ID del producto
+  let id = req.params.productId
+  let upDate = req.body
 
+  Product.findByIdAndUpdate(id, upDate, (err, productUpdated) => {
+    if (err) {
+      res.status(500).send({ message: `Error al tratar de borrar el producto: ${err}` })
+    }
+  })
 })
 
 // ruta para borrar productos de la base de datos
 app.delete('/api/producto/:productId', (req, res) => {
+  // se captura el ID del producto
+  let id = req.params.productId
 
+  Product.findById(id, (error, product) => {
+    if (error) {
+      res.status(500).send({ message: `Error al tratar de borrar el producto: ${error}` })
+    }
+    product.remove(err => {
+      if (err) {
+        res.status(500).send({ message: `Error al tratar de borrar el producto: ${err}` })
+      }
+      res.status(200).send({ message: `El producto ha sido eiminado` })
+    })
+  })
 })
 
 /* mongoose.conect se conecta a la base de datos, el cual recive un url donde esta la base de datos y el nombre
 y luego un callbakc
 */
-mongoose.connect('mongodb://localhost:27017/shop', (err, res) => {
+mongoose.connect('mongodb://localhost/shop', (err, res) => {
   if (err) {
     return console.log(`Error al conectar a la base de datos: ${err}`)
   } else {

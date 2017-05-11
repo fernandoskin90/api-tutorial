@@ -11,4 +11,4 @@ const ProductSchema = Schema({
 })
 
 // se exporta y se le pasa un nombre como primer parametro y el segundo es el esquema creado
-module.exports = mongoose.model('Product', ProductSchema)
+module.exports = mongoose.model('product', ProductSchema)
