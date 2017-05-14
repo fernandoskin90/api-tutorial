@@ -81,12 +81,14 @@ app.post('/api/producto', (req, res) => {
 app.put('/api/producto/:productId', (req, res) => {
   // se captura el ID del producto
   let id = req.params.productId
+  // se captura el producto a actualizar, objento con los campos a actualizar
   let upDate = req.body
 
   Product.findByIdAndUpdate(id, upDate, (err, productUpdated) => {
     if (err) {
-      res.status(500).send({ message: `Error al tratar de borrar el producto: ${err}` })
+      res.status(500).send({ message: `Error al tratar de actuaziar  el producto: ${err}` })
     }
+    res.status(200).send({product: productUpdated})
   })
 })
 
