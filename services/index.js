@@ -12,7 +12,7 @@ function createToken (user) {
     exp: moment().add(2, 'days').unix()
   }
 
-  jwt.encode(payload, config.SECRET_TOKEN)
+  return jwt.encode(payload, config.SECRET_TOKEN)
 }
 
 module.exports = createToken
